@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block body %} 
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img
+            src="/static/todologo.png"
+            alt="Logo"
+            width="60"
+            height="54"
+            class="d-inline-block align-text-top"
+           
+          />
+          To-do list
+          
+          
+        </a>
+      </div>
+    </nav>
+    <div class="container-lg my-3">
+      <form action="/" method="POST">
+        <div class="mb-3">
+          <label for="titlein" class="form-label">Title</label>
+          <input
+            type="input"
+            class="form-control"
+            id="titlein"
+            aria-describedby="emailHelp"
+            name="title"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="desc" class="form-label">Description</label>
+          <input type="input" class="form-control" id="desc" name="desc" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+<div class="container my-4">
+    
+        {% if  message|length ==0 %}
+        <div class="alert alert-primary" role="alert">
+          No to-dos available, add one now!
+        </div>
+      </div>
+        {% else %}
+        <div class="container my-4">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">SNo</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date created</th>
+              </tr>
+            </thead>
+            <tbody>
+        
+          {% for todo in message %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{todo.title}}</td>
+            <td>{{todo.desc}}</td>
+            <td>{{todo.date_created}}</td>
+            <td>
+              <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-primary mx-3">delete</button>
+              <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-primary">update</button>
+            </td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+          <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+        </tbody>
+      </table>
+    </div>
+    {% endblock body %}
